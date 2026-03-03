@@ -1,0 +1,19 @@
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.example.UpgradeToSpringBoot4WithOpenApi
+displayName: Upgrade to Spring Boot 4 with OpenAPI Generator and Jackson 3
+description: >-
+  Upgrades to Spring Boot 4, updates the openapi-generator-maven-plugin to 7.20.0,
+  and configures it with useSpringBoot4 and useJackson3 options.
+recipeList:
+  - io.moderne.java.spring.boot4.UpgradeSpringBoot_4_0
+  - org.openrewrite.maven.UpgradePluginVersion:
+      groupId: org.openapitools
+      artifactId: openapi-generator-maven-plugin
+      newVersion: 7.20.0
+  - org.openrewrite.xml.AddOrUpdateChildTag:
+      parentXPath: /project/build/plugins/plugin/executions/execution/configuration/configOptions
+      newChildTag: "<useSpringBoot4>true</useSpringBoot4>"
+  - org.openrewrite.xml.AddOrUpdateChildTag:
+      parentXPath: /project/build/plugins/plugin/executions/execution/configuration/configOptions
+      newChildTag: "<useJackson3>true</useJackson3>"
